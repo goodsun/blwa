@@ -37,8 +37,10 @@ export function startTelegramBot(token) {
     }
 
     try {
+      console.log(`[IN]  ${userId}: ${text}`);
       await bot.sendChatAction(chatId, 'typing');
       const reply = await chat(memory, text);
+      console.log(`[OUT] ${userId}: ${reply}`);
       bot.sendMessage(chatId, reply);
     } catch (e) {
       console.error(e);
