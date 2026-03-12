@@ -15,6 +15,20 @@ export class Memory {
     while (this.history.length > 0 && this.history[0].role !== 'user') {
       this.history.shift();
     }
+    // tool_resultを含むuserメッセージが先頭に来た場合も除去
+    // （対応するtool_useを持つassistantメッセージが無いとAPIエラーになる）
+    while (
+      this.history.length > 0 &&
+      this.history[0].role === 'user' &&
+      Array.isArray(this.history[0].content) &&
+      this.history[0].content.some(c => c.type === 'tool_result')
+    ) {
+      this.history.shift();
+      // tool_result除去後、次のassistantも孤立するので除去
+      while (this.history.length > 0 && this.history[0].role !== 'user') {
+        this.history.shift();
+      }
+    }
   }
 
   get() {
