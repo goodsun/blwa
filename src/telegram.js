@@ -1,6 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
 import { Memory } from './memory.js';
-import { chat } from './agent.js';
+import { chat, MODEL } from './agent.js';
 
 const sessions = new Map(); // chatId → Memory
 
@@ -40,7 +40,7 @@ export function startTelegramBot(token) {
       console.log(`[IN]  ${userId}: ${text}`);
       await bot.sendChatAction(chatId, 'typing');
       const reply = await chat(memory, text);
-      console.log(`[OUT] ${userId}: ${reply}`);
+      console.log(`[OUT] ${userId} (${MODEL}): ${reply}`);
       bot.sendMessage(chatId, reply);
     } catch (e) {
       console.error(e);

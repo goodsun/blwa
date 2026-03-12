@@ -5,11 +5,15 @@ export class Memory {
     this.history = [];
   }
 
-  add(role, content) {
-    this.history.push({ role, content });
+  add(message) {
+    this.history.push(message);
     // 直近N件だけ保持。猫だから。
-    if (this.history.length > this.limit) {
-      this.history = this.history.slice(-this.limit);
+    // ただしtool_resultが孤立しないよう、先頭がuser以外なら切り詰める
+    while (this.history.length > this.limit) {
+      this.history.shift();
+    }
+    while (this.history.length > 0 && this.history[0].role !== 'user') {
+      this.history.shift();
     }
   }
 

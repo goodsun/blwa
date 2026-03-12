@@ -1,9 +1,9 @@
 # BLWA — Bonsoleil Lite Weight Agent
 
-シンプルに、速く。OpenClawなし、フレームワークなし。
+シンプルに、速く。フレームワークなし。
 
 ## コンセプト
-- Ollama（ローカルLLM）+ Telegram Bot
+- Claude API + Telegram Bot
 - SOUL.md でキャラクター定義
 - 猫の記憶：直近N件だけ保持、大切なことはSOULに刻む
 
@@ -11,7 +11,7 @@
 
 ```bash
 cp .env.example .env
-# .envを編集
+# .envを編集（ANTHROPIC_API_KEY, TELEGRAM_BOT_TOKEN）
 npm install
 npm start
 ```
@@ -22,7 +22,7 @@ npm start
 - `browse` — URLのテキストを取得（playwright）
 
 ## キャラクター追加
-`souls/` 以下にディレクトリを作り、`SOUL.md` を置く。  
+`souls/` 以下にディレクトリを作り、`SOUL.md` を置く。
 `.env` の `SOUL_PATH` を変えるだけで別キャラに切り替え。
 
 ---
