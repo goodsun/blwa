@@ -39,7 +39,19 @@ export function startTelegramBot(token) {
     try {
       console.log(`[IN]  ${userId}: ${text}`);
       await bot.sendChatAction(chatId, 'typing');
-      const reply = await chat(memory, text);
+      const raw = await chat(memory, text);
+      const reply = raw
+        .replace(/<0x0A>/g, '\n')
+        .replace(/^#{1,6}\s*/gm, '')        // ### 見出し → 見出し
+        .replace(/\*\*(.+?)\*\*/g, '$1')    // **太字** → 太字
+        .replace(/\*(.+?)\*/g, '$1')        // *イタリック* → イタリック
+        .replace(/^[-*]\s/gm, '・')          // - リスト → ・リスト
+        .replace(/^\d+\.\s/gm, (m) => m)    // 番号リストはそのまま
+        .replace(/^>\s?/gm, '')              // > 引用 → 引用
+        .replace(/^---+$/gm, '')             // --- 水平線を除去
+        .replace(/\|[^|\n]+\|/g, '')         // テーブル行を除去
+        .replace(/\n{3,}/g, '\n\n')          // 連続空行を詰める
+        .trim();
       console.log(`[OUT] ${userId} (${MODEL}): ${reply}`);
       bot.sendMessage(chatId, reply);
     } catch (e) {

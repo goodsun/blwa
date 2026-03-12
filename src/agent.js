@@ -6,7 +6,7 @@ import { browseTool } from './tools/browse.js';
 const LLM_PROVIDER = process.env.LLM_PROVIDER || 'anthropic';
 export const MODEL = process.env.LLM_MODEL
   || process.env.CLAUDE_MODEL
-  || (LLM_PROVIDER === 'ollama' ? 'qwen2.5' : 'claude-sonnet-4-20250514');
+  || (LLM_PROVIDER === 'ollama' ? 'llm-jp-4' : 'claude-sonnet-4-20250514');
 const SOUL_PATH = process.env.SOUL_PATH || './souls/mii/SOUL.md';
 const MAX_TOKENS = parseInt(process.env.MAX_TOKENS) || 1024;
 

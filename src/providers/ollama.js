@@ -32,7 +32,7 @@ export function createProvider() {
       const response = await ollama.chat({
         model,
         messages: msgs,
-        tools: formattedTools,
+        // tools: formattedTools,  // llm-jp-4 does not support tools
         options: { num_predict: maxTokens }
       });
 
